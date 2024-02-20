@@ -20,7 +20,7 @@ namespace AssetService2.Infrastructure
             var message = BuildMqttMessage(msg, mqttConfig);
 
             await mqttClient.PublishAsync(message);
-            await Task.Delay(70000); // Wait for 7 second
+            await Task.Delay(2000); // Wait for 2 second
         }
 
         private static MqttApplicationMessage BuildMqttMessage(string msg, MqttConfig mqttConfig)

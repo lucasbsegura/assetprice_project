@@ -22,7 +22,7 @@ namespace AssetService2
 
             _timer = new Timer();
             _timer.Elapsed += LoadNewPrices;
-            _timer.Interval = double.TryParse(ConfigurationManager.AppSettings["timerPeriodCheck"], out outDble) ? outDble : 60000; // in mSec.
+            _timer.Interval = double.TryParse(ConfigurationManager.AppSettings["timerPeriodCheck"], out outDble) ? outDble : 90000; // in mSec.
             _timer.Enabled = true;
         }
 
@@ -34,6 +34,7 @@ namespace AssetService2
             foreach (var asset in assetList)
             {
                 AssetPriceHandler.Handle(asset);
+                System.Threading.Thread.Sleep(20000);
             }
 
             _timer.Enabled = true;

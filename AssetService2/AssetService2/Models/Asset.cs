@@ -7,6 +7,6 @@ namespace AssetService2.Models
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
         [JsonProperty("price")]
-        public string Price { get; set; }
+        public float Price { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AssetService2.Infrastructure;
 using log4net;
 using System;
+using System.Globalization;
 
 namespace AssetService2
 {
@@ -12,8 +13,9 @@ namespace AssetService2
             try
             {
                 var result = BinanceAPI.Get("https://api.binance.com/api/v3/ticker/price?symbol=", asset).Result;
-                var currency = (result.Symbol == "USDTBRL" ? "BRL" : result.Symbol.Substring(0, 3));
-                Mosquitto.Publish(string.Format("{0}:US${1}", currency, result.Price));
+                var currencySymbol = (result.Symbol == "USDTBRL" ? "R$" : "US$");
+                var cultureInfo = (result.Symbol == "USDTBRL" ? "pt-BR" : "en-US");
+                Mosquitto.Publish(string.Format("{0} - {1}{2}", result.Symbol.Substring(0, 3), currencySymbol, result.Price.ToString("N2", new CultureInfo(cultureInfo))));
             }
             catch (Exception ex)
             {
